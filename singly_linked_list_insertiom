@@ -1,0 +1,78 @@
+#include <iostream>
+
+using namespace std;
+
+
+
+class Node{
+    public:
+    int data;
+    Node *next;
+    
+    Node(int data){
+        this->data=data;
+        this->next=NULL;
+    }
+};
+// inserting node at starting
+void insertAtLast(Node* & tail,int data){
+    Node * temp=new Node(data);
+    tail->next=temp;
+    tail=temp;
+}
+
+// inserting node at last
+void insertAtFirst(Node* & head,int data){
+    Node * temp=new Node(data);
+    temp->next=head;
+    head=temp;
+}
+// traversing the linked list
+void print(Node *& head){
+    Node *temp=head;
+    while(temp!=NULL){
+       cout<<temp->data<<" ";
+       temp=temp->next;
+    }
+    cout<< endl;
+}
+// inserting node at any position
+void insertPos(int data,Node *&head,Node*& tail,int pos){
+    if(pos==1){
+        insertAtFirst(head,data);
+        return;
+    }
+    
+    Node *temp=head;
+    int cnt=1;
+     while(cnt<pos-1){
+         temp=temp->next;
+         cnt++;
+     }
+    Node *nodeinsert= new Node(data);
+     nodeinsert->next= temp->next;
+    temp->next= nodeinsert;
+    
+    
+    if(temp->next==NULL){
+        insertAtLast(tail,data);
+        return;
+    }
+}
+
+int main(){
+    Node *node1=new Node(10);
+    Node *tail= node1;
+    Node *head=node1;
+    insertAtFirst(head,12);
+    print(head);
+    insertAtFirst(head,14);
+    print(head);
+    insertPos(22,head,tail,3);
+    print(head);
+    insertPos(34,head,tail,5);
+    print(head);
+    insertPos(44,head,tail,1);
+    print(head);
+    
+}
