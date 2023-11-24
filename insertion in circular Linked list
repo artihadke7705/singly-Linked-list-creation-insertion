@@ -1,0 +1,56 @@
+#include <iostream>
+
+using namespace std;
+
+class Node{
+    public:
+    int data;
+    Node* next;
+    
+    Node(int data){
+        this->data=data;
+        this->next=NULL;
+        
+    }
+};
+
+void insert(int data,int element, Node *&tail){
+   
+   if(tail==NULL){
+       Node *newnode= new Node(data);
+       tail=newnode;
+       newnode->next=newnode;
+   } 
+   else{
+       Node *curr=tail;
+       while(curr->data != element){
+           curr=curr->next;
+       }
+       Node *temp= new Node(data);
+       temp->next=curr->next;
+       curr->next=temp;
+   }
+}
+
+void print( Node *&tail){
+    Node * temp= tail;
+    do{
+        cout<<tail->data<<" ";
+        tail=tail->next;
+    }while(tail!=temp);
+    cout<< endl;
+
+}
+
+int main()
+{
+    Node *tail=NULL;
+    insert(3,2,tail);
+    print(tail);
+    
+    insert(4,3,tail);
+    print(tail);
+    
+    insert(3,3,tail);
+    print(tail);
+}
